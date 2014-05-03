@@ -1,6 +1,6 @@
 import unittest
 import rubik
-
+import random
 
 class TestRubik(unittest.TestCase):
     def setUp(self):
@@ -32,3 +32,12 @@ class TestRubik(unittest.TestCase):
             cube = self.turned[direction].copy()
             getattr(cube, "anti_" + direction)()
             self.assertEqual(cube, rubik.Cube())
+
+    def testPath(self):
+        choices = ["left", "right", "top", "down", "front", "back"]
+        m = [random.choice(choices) for _ in xrange(1000)]
+        n = ["anti_" + i for i in reversed(m)]
+        cube = rubik.Cube()
+        for i in m + n:
+            getattr(cube, i)()
+        self.assertEqual(cube, rubik.Cube())

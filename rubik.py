@@ -106,10 +106,11 @@ def solve(work_cube):
     while True:
         shortest_dist = float('Inf')
         shortest_cube = None
-        for move_set in itertools.combinations(moves, 7):
+        for move_set in itertools.product(moves, repeat=5):
             move_cube = work_cube.copy()
             for move in move_set:
                 getattr(move_cube, move)()
+
             dist = cube_distance(move_cube, solved)
             if dist < shortest_dist:
                 shortest_dist = dist
